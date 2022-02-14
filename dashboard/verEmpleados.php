@@ -49,8 +49,7 @@
                         </div>
                         
                         <hr>
-                        <div class="card mb-4">
-                            
+                        <div class="card mb-4">  
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Tabla - Personal OEK
@@ -61,96 +60,34 @@
                                         Agregar
                                     </button>
                                 </div>
-                            <table id="datatablesSimple" class="table table-striped table-bordered table-dark" style="width:100%">
-                            <thead class="bg-primary text-white text-center">
-                                <tr>
-                                    <th>NUM. EMPLEADO</th>
-                                    <th>NOMBRE</th>
-                                    <th>APELLIDO PATERNO</th>
-                                    <th>APELLIDO MATERNO</th>
-                                    <th>EDAD</th>
-                                    <th>TELEFONO</th>
-                                    <th>CORREO</th>
-                                    <th>FECHA DE NACIMIENTO</th>
-                                    <th>GENERO</th>
-                                    <th>DOMICILIO</th>
-                                    <th>ESTADO</th>
-                                    <th>PROVINCIA</th>
-                                    <th>CODIGO POSTAL</th>
-                                    <th>CURP</th>
-                                    <th>RFC</th>
-                                    <th>ESCOLARIDAD</th>
-                                    <th>PUESTO</th>
-                                    <th>ACCIONES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($personal as $personal) {
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $personal['num_empleado'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['nombre'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['ap_paterno'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['ap_materno'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['edad'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['num_tel'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['correo'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['fech_nacimiento'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['sexo'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['domicilio'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['estado'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['provincia'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['cod_postal'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['CURP'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['RFC'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['escolaridad'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $personal['puesto'] ?>
-                                    </td>
-                                    <td>
-                                        <?php 
-                                            echo "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-toggle='modal'>EDITAR</button><button class='btn btn-danger btn-sm btnBorrar'>ELIMINAR</button></div></div>";
-                                        ?>
-                                    </td>
-                                </tr>
-                                <?php    
-                                }
-                                ?>
-                            </tbody>
-                        </table>
+
+                                <table id="tVerEmpleados" class="table table-striped table-dark" style="width:100%">
+                                    <thead class="bg-primary text-white text-center">
+                                        <tr>
+                                            <th>NUM. EMPLEADO</th>
+                                            <th>NOMBRE</th>
+                                            <th>APELLIDO PATERNO</th>
+                                            <th>APELLIDO MATERNO</th>
+                                            <th>EDAD</th>
+                                            <th>TELEFONO</th>
+                                            <th>CORREO</th>
+                                            <th>FECHA DE NACIMIENTO</th>
+                                            <th>GENERO</th>
+                                            <th>DOMICILIO</th>
+                                            <th>ESTADO</th>
+                                            <th>PROVINCIA</th>
+                                            <th>CODIGO POSTAL</th>
+                                            <th>CURP</th>
+                                            <th>RFC</th>
+                                            <th>ESCOLARIDAD</th>
+                                            <th>PUESTO</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

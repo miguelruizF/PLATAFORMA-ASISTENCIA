@@ -1,12 +1,65 @@
 $(document).ready(function() {
-    $('#tPersonal').DataTable();
     var id, opcion;
+    opcion = 4;
+    tPersonal = $('#tPersonal').DataTable({
+        'language': {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+        },
+        'ajax': {
+            'url': 'bd-personal/crud.php',
+            'method': 'POST',
+            'data': { opcion: opcion },
+            'dataSrc': ''
+        },
+        'columns': [
+            { 'data': 'num_empleado' },
+            { 'data': 'nombre' },
+            { 'data': 'ap_paterno' },
+            { 'data': 'puesto' },
+        ],
+        "reponsive": true
+    });
+    tVerEmpleados = $('#tVerEmpleados').DataTable({
+        'language': {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+        },
+        'ajax': {
+            'url': 'bd-personal/crud.php',
+            'method': 'POST',
+            'data': { opcion: opcion },
+            'dataSrc': ''
+        },
+        'columns': [
+            { 'data': 'num_empleado' },
+            { 'data': 'nombre' },
+            { 'data': 'ap_paterno' },
+            { 'data': 'ap_materno' },
+            { 'data': 'edad' },
+            { 'data': 'num_tel' },
+            { 'data': 'correo' },
+            { 'data': 'fech_nacimiento' },
+            { 'data': 'sexo' },
+            { 'data': 'domicilio' },
+            { 'data': 'estado' },
+            { 'data': 'provincia' },
+            { 'data': 'cod_postal' },
+            { 'data': 'CURP' },
+            { 'data': 'RFC' },
+            { 'data': 'escolaridad' },
+            { 'data': 'puesto' },
+            { 'defaultContent': "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'>EDITAR</button><button class='btn btn-danger btn-sm btnBorrar'>ELIMINAR</button></div></div>" }
+        ],
+        "reponsive": true,
+        'scrollX': true
+    });
 
     /*  tablaPersonal = $('#tPersonal').DataTable({
          'language': {
              "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
          }
      }); */
+
+    var fila;
 
     $('#formAdd').submit(function(e) {
         e.preventDefault();
@@ -29,7 +82,7 @@ $(document).ready(function() {
         puesto = $.trim($("#puesto").val());
 
         $.ajax({
-            url: "../dashboard/bd-personal/crud.php",
+            url: "../bd-personal/crud.php",
             type: 'POST',
             datatype: 'JSON',
             data: {
@@ -54,8 +107,8 @@ $(document).ready(function() {
                 opcion: opcion,
             },
             success: function(data) {
-                alert(data);
-                $('#datatablesSimple').ajax.reload(null, false);
+                //alert(data);
+                tPersonal.ajax.reload(null, false);
                 //console.log(data);
             }
         });

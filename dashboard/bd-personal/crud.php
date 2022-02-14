@@ -30,10 +30,16 @@ switch ($opcion) {
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
-   
+
+    case 4:
+        $sql =  'SELECT * FROM personal';
+        $resultado = $conexion->prepare($sql);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
 }
 print json_encode($data , JSON_UNESCAPED_UNICODE);
-header('location: ../verEmpleados.php');
+//header('location: ../verEmpleados.php');
 $conexion = null;
 
 
