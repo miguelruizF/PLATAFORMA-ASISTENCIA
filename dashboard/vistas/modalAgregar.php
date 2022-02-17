@@ -113,7 +113,7 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="telefono" class=" control-label">Teléfono</label>
-								<input type="tel" class="form-control" id="telefono" name="telefono">
+								<input type="tel" class="form-control" id="phone" name="telefono">
 							</div>
 						</div>	
 						<div class="col-lg-6">

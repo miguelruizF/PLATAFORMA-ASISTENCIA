@@ -1,24 +1,6 @@
 $(document).ready(function() {
     var id, opcion;
-    opcion = 4;
-    tPersonal = $('#tPersonal').DataTable({
-        'language': {
-            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-        },
-        'ajax': {
-            'url': 'bd-personal/crud.php',
-            'method': 'POST',
-            'data': { opcion: opcion },
-            'dataSrc': ''
-        },
-        'columns': [
-            { 'data': 'num_empleado' },
-            { 'data': 'nombre' },
-            { 'data': 'ap_paterno' },
-            { 'data': 'puesto' },
-        ],
-        "reponsive": true
-    });
+    opcion = 2;
     tVerEmpleados = $('#tVerEmpleados').DataTable({
         'language': {
             "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
@@ -49,15 +31,9 @@ $(document).ready(function() {
             { 'data': 'puesto' },
             { 'defaultContent': "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'>EDITAR</button><button class='btn btn-danger btn-sm btnBorrar'>ELIMINAR</button></div></div>" }
         ],
-        "reponsive": true,
+        "responsive": true,
         'scrollX': true
     });
-
-    /*  tablaPersonal = $('#tPersonal').DataTable({
-         'language': {
-             "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-         }
-     }); */
 
     var fila;
 
@@ -68,7 +44,7 @@ $(document).ready(function() {
         aPaterno = $.trim($("#aPaterno").val());
         aMaterno = $.trim($("#aMaterno").val());
         edad = $.trim($("#edad").val());
-        telefono = $.trim($("#telefono").val());
+        telefono = $.trim($("#phone").val());
         correo = $.trim($("#correo").val());
         fNacimiento = $.trim($("#fNacimiento").val());
         genero = $.trim($("#genero").val());
@@ -81,8 +57,10 @@ $(document).ready(function() {
         escolaridad = $.trim($("#escolaridad").val());
         puesto = $.trim($("#puesto").val());
 
+        console.log(telefono);
+
         $.ajax({
-            url: "../bd-personal/crud.php",
+            url: "bd-personal/crud.php",
             type: 'POST',
             datatype: 'JSON',
             data: {
@@ -108,8 +86,8 @@ $(document).ready(function() {
             },
             success: function(data) {
                 //alert(data);
-                tPersonal.ajax.reload(null, false);
-                //console.log(data);
+                tVerEmpleados.ajax.reload(null, false);
+                console.log(data);
             }
         });
         $("#addnew").modal('hide');
@@ -126,8 +104,8 @@ $(document).ready(function() {
     $('#btnNuevo').click(function() {
         opcion = 1;
         id = null;
+        $("#formAdd").trigger('reset');
         $("#addnew").modal('show');
-        $("addnew").trigger('reset');
         $(".modal-title").text("Agregar Empleado");
         $(".modal-header").css("background-color", "#2FF058");
         $(".modal-header").css("color", "#fff");
