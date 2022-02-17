@@ -57,7 +57,6 @@ $(document).ready(function() {
         escolaridad = $.trim($("#escolaridad").val());
         puesto = $.trim($("#puesto").val());
 
-        console.log(telefono);
 
         $.ajax({
             url: "bd-personal/crud.php",
@@ -107,116 +106,75 @@ $(document).ready(function() {
         $("#formAdd").trigger('reset');
         $("#addnew").modal('show');
         $(".modal-title").text("Agregar Empleado");
-        $(".modal-header").css("background-color", "#2FF058");
+        $(".modal-header").css("background-color", "#000");
         $(".modal-header").css("color", "#fff");
         //console.log(opcion);
     });
-});
 
+    //EDITAR REGISTRO
+    $(document).on('click', '.btnEditar', function() {
+        opcion = 3;
+        $("#addnew").modal('show');
+        $(".modal-title").text("Editar Empleado");
+        $(".modal-header").css("background-color", "#007bff");
+        $(".modal-header").css("color", "#fff");
+        fila = $(this).closest('tr');
+        numEmpleado = parseInt(fila.find('td:eq(0)').text());
+        nombre = fila.find('td:eq(1)').text();
+        aPaterno = fila.find('td:eq(2)').text();
+        aMaterno = fila.find('td:eq(3)').text();
+        edad = parseInt(fila.find('td:eq(4)').text());
+        telefono = parseInt(fila.find('td:eq(5)').text());
+        correo = fila.find('td:eq(6)').text();
+        fNacimiento = fila.find('td:eq(7)').text();
+        genero = fila.find('td:eq(8)').text();
+        direccion = fila.find('td:eq(9)').text();
+        estado = fila.find('td:eq(10)').text();
+        provincia = fila.find('td:eq(11)').text();
+        cPostal = parseInt(fila.find('td:eq(12)').text());
+        curp = fila.find('td:eq(13)').text();
+        rfc = fila.find('td:eq(14)').text();
+        escolaridad = fila.find('td:eq(15)').text();
+        puesto = fila.find('td:eq(16)').text();
+        $('#numEmpleado').val(numEmpleado);
+        $("#nombre").val(nombre);
+        $("#aPaterno").val(aPaterno);
+        $("#aMaterno").val(aMaterno);
+        $("#edad").val(edad);
+        $("#phone").val(telefono);
+        $("#correo").val(correo);
+        $("#fNacimiento").val(fNacimiento);
+        $("#genero").val(genero);
+        $("#direccion").val(direccion);
+        $("#estado").val(estado);
+        $("#provincia").val(provincia);
+        $("#cPostal").val(cPostal);
+        $("#curp").val(curp);
+        $("#rfc").val(rfc);
+        $("#escolaridad").val(escolaridad);
+        $("#puesto").val(puesto);
 
-/* $('#btnNuevo').click(function() {
-    if ($("#edit")) {
-        $('#edit').attr("id", "addnew");
-        $('#submit').attr('name', 'add');
-    }
-    $("#addnew").modal('show');
-    $("addnew").trigger('reset');
-    $(".modal-title").text("Agregar Empleado");
-    $(".modal-header").css("background-color", "#2FF058");
-    $(".modal-header").css("color", "#fff");
-    $("#numEmpleado").val('');
-    $("#nombre").val('');
-    $("#aPaterno").val('');
-    $("#aMaterno").val('');
-    $("#edad").val('');
-    $("#telefono").val('');
-    $("#correo").val('');
-    $("#fNacimiento").val('');
-    $("#genero").val('');
-    $("#direccion").val('');
-    $("#estado").val('');
-    $("#provincia").val('');
-    $("#cPostal").val('');
-    $("#curp").val('');
-    $("#rfc").val('');
-    $("#escolaridad").val('');
-    $("#puesto").val('');
+    });
 
-    //id = null;
-});
-
-$('.close').click(function() {
-    $("#addnew").modal('hide');
-    $("#edit").modal('hide');
-});
-
-$(document).on('click', '.btnEditar', function() {
-    $("#addnew").attr('id', 'edit');
-    $('#submit').attr('name', 'edit-btn');
-    $("#edit").modal('show');
-    $(".modal-title").text("Editar Empleado");
-    $(".modal-header").css("background-color", "#007bff");
-    $(".modal-header").css("color", "white");
-    //$("addnew").trigger('reset');
-    //id = null;
-    fila = $(this).closest('tr');
-    numEmpleado = parseInt(fila.find('td:eq(0)').text());
-    nombre = $.trim(fila.find('td:eq(1)').text());
-    aPaterno = $.trim(fila.find('td:eq(2)').text());
-    aMaterno = $.trim(fila.find('td:eq(3)').text());
-    edad = parseInt(fila.find('td:eq(4)').text());
-    telefono = parseInt(fila.find('td:eq(5)').text());
-    correo = $.trim(fila.find('td:eq(6)').text());
-    fNacimiento = $.trim(fila.find('td:eq(7)').text());
-    genero = $.trim(fila.find('td:eq(8)').text());
-    domicilio = $.trim(fila.find('td:eq(9)').text());
-    estado = $.trim(fila.find('td:eq(10)').text());
-    provincia = $.trim(fila.find('td:eq(11)').text());
-    cPostal = $.trim(fila.find('td:eq(12)').text());
-    curp = $.trim(fila.find('td:eq(13)').text());
-    rfc = $.trim(fila.find('td:eq(14)').text());
-    escolaridad = $.trim(fila.find('td:eq(15)').text());
-    puesto = $.trim(fila.find('td:eq(16)').text());
-    //puesto = $.trim(fila.find('td:eq(7)').text());
-    $("#numEmpleado").val(numEmpleado);
-    $("#nombre").val(nombre);
-    $("#aPaterno").val(aPaterno);
-    $("#aMaterno").val(aMaterno);
-    $("#edad").val(edad);
-    $("#telefono").val(telefono);
-    $("#correo").val(correo);
-    $("#fNacimiento").val(fNacimiento);
-    $("#genero").val(genero);
-    $("#direccion").val(domicilio);
-    $("#estado").val(estado);
-    $("#provincia").val(provincia);
-    $("#cPostal").val(cPostal);
-    $("#curp").val(curp);
-    $("#rfc").val(rfc);
-    $("#escolaridad").val(escolaridad);
-    $("#puesto").val(puesto);
-    //console.log(puesto);
-});
-
-
-$("#formTxt").submit(function(e) {
-    e.preventDefault();
-    //alert("se presiono el boton");
-    var formData = new FormData();
-    var fileTxt = $("#file")[0].files[0];
-    formData.append('file', fileTxt);
-    $.ajax({
-        url: "bd-personal/import_asistencia.php",
-        type: "POST",
-        datatype: "json",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            alert(data);
+    //BORRAR REGISTRO
+    $(document).on('click', '.btnBorrar', function() {
+        opcion = 4;
+        fila = $(this);
+        numEmpleado = parseInt($(this).closest('tr').find('td:eq(0)').text());
+        var respuesta = confirm("¿Estas seguro de borrar el registro " + numEmpleado + "?");
+        if (respuesta) {
+            $.ajax({
+                url: 'bd-personal/crud.php',
+                type: 'POST',
+                datatype: 'JSON',
+                data: {
+                    opcion: opcion,
+                    numEmpleado: numEmpleado,
+                    success: function() {
+                        tVerEmpleados.row(fila.parents('tr')).remove().draw();
+                    },
+                }
+            })
         }
     });
-    //return false;
 });
-*/
