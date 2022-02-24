@@ -55,13 +55,13 @@
                                 Tabla - Personal OEK
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-striped table-bordered table-dark" style="width:100%">
+                                <table id="tbAsistencia" class="table table-striped table-bordered table-dark" style="width:100%">
                                     <thead class="bg-primary text-white text-center">
                                         <tr>
                                             <th>FECHA</th>
-                                            <th>NUM. EMPLEADO</th>
                                             <th>NOMBRE</th>
-                                            <th>APELLIDO</th>
+                                            <th># EMPLEADO</th>
+                                            <!-- <th>APELLIDO</th> -->
                                             <th>PUESTO</th>
                                             <th>HORA ENTRADA</th>
                                             <th>HORA SALIDA</th>
@@ -70,31 +70,48 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($personal as $personal) {
+                                            // $sql = "SELECT *, personal.num_empleado as personal, asistencia.hora as horario from asistencia left join personal on personal.num_empleado = asistencia.idEmpleado order by asistencia.idEmpleado asc,  asistencia.fecha asc, asistencia.hora asc";
+                                            // $resultado = $conexion->prepare($sql);
+                                            // while($row = $resultado->fetchAll(PDO::FETCH_ASSOC)){
+                                            //     echo "<pre>";print_r($row->rows());
+                                            // }
+                                            
+                                            $sql = "SELECT *, personal.num_empleado as personal, asistencia.hora as horario from asistencia right join personal on personal.num_empleado = asistencia.idEmpleado WHERE hora BETWEEN '08:30:00' and '09:05:59' order by asistencia.fecha asc, asistencia.idEmpleado asc, asistencia.hora asc";
+                                            $resultado = $conexion->prepare($sql);
+                                            $resultado->execute();
+                                            $result = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                                            foreach($result as $horario){
+                                        
+                                                //print_r($horario);
                                         ?>
                                         <tr>
-                                            <td></td>
                                             <td>
-                                                <?php echo $personal['num_empleado'] ?>
+                                                <?php echo $horario['fecha']?>
                                             </td>
                                             <td>
-                                                <?php echo $personal['nombre'] ?>
+                                                <?php echo $horario['nombre'].' '.$horario['ap_paterno']?>
                                             </td>
                                             <td>
-                                                <?php echo $personal['ap_paterno'] ?>
+                                                <?php echo $horario['personal']?>
                                             </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            
+                                            <td>
+                                                <?php echo $horario['puesto']?>
+                                            </td>
+                                            <td>
+                                                <?php echo $horario['horario']?>
+                                            </td>
+                                            <td>
+                                               
+                                            </td>
+                                            <td>
+                                               
+                                            </td>
                                         </tr>
-                                        <?php    
+                                        <?php
                                         }
                                         ?>
                                     </tbody>
-                                </table>
-                            
+                                </table>  
                             </div>
                         </div>
                     </div> 

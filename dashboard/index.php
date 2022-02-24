@@ -213,7 +213,7 @@ $personal = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         </tfoot>
                     </table>
 
-
+                   
                     <!-- <div class="table-responsive">
                         <table id="datatablesSimple" class="table table-striped table-bordered table-dark" style="width:100%">
                             <thead class="bg-primary text-white text-center">
