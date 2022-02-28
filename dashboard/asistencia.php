@@ -30,11 +30,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card p-4 bg-dark" style="--bs-bg-opacity: .1;">
-                                        <form action="" method="POST" name="formTxt" id="formTxt" enctype="multipart/form-data">
+                                        <form action="bd-personal/import_asistencia.php" method="POST" name="formTxt" id="formTxt" enctype="multipart/form-data">
                                             <div>
                                                 <label for="file" class="pe-4">Elija Archivo
                                                 </label>
-                                                <input type="file" name="file" id="file" class="pe-4">
+                                                <input type="file" name="file" id="file"
+                                                accept=".xls, .xlsx"  class="pe-4">
                                                 <button type="submit" id="btnArchivo_txt" name="subir" class="btn btn-dark">Importar</button>
                                             </div>
                                         </form>
@@ -65,7 +66,7 @@
                                             <th>PUESTO</th>
                                             <th>HORA ENTRADA</th>
                                             <th>HORA SALIDA</th>
-                                            <th>HORAS LABORADAS</th>
+                                            <!-- <th>HORAS LABORADAS</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,15 +76,20 @@
                                             // while($row = $resultado->fetchAll(PDO::FETCH_ASSOC)){
                                             //     echo "<pre>";print_r($row->rows());
                                             // }
-                                            
-                                            $sql = "SELECT *, personal.num_empleado as personal, asistencia.hora as horario from asistencia right join personal on personal.num_empleado = asistencia.idEmpleado WHERE hora BETWEEN '08:30:00' and '09:05:59' order by asistencia.fecha asc, asistencia.idEmpleado asc, asistencia.hora asc";
+                                            $horaEntradaM = '08:30:00';
+                                            $limitHoraEntradaM = '09:05:59';
+                                            $horaSalidaM = '14:30:00';
+                                            $retardoMa = '09:06:00';
+                                            $limitRetardoMa = '09:10:59';
+                                            $faltaMa = '09:11:00';
+                                            $limitFaltaMa = '13:59:59';
+                                            $sql = "SELECT *, personal.num_empleado as personal, asistencia.horaEntrada as entrada, asistencia.horaSalida as salida from asistencia left join personal on personal.num_empleado = asistencia.idEmpleado order by asistencia.fecha asc, asistencia.idEmpleado asc, asistencia.horaEntrada asc";
                                             $resultado = $conexion->prepare($sql);
                                             $resultado->execute();
                                             $result = $resultado->fetchAll(PDO::FETCH_ASSOC);
-                                            foreach($result as $horario){
-                                        
-                                                //print_r($horario);
-                                        ?>
+                                            foreach($result as $horario){   
+                                                
+                                            ?>
                                         <tr>
                                             <td>
                                                 <?php echo $horario['fecha']?>
@@ -98,14 +104,13 @@
                                                 <?php echo $horario['puesto']?>
                                             </td>
                                             <td>
-                                                <?php echo $horario['horario']?>
+                                                <?php echo $horario['horaEntrada']?>
+                                            
                                             </td>
                                             <td>
-                                               
+                                                <?php echo $horario['horaSalida']?>
                                             </td>
-                                            <td>
-                                               
-                                            </td>
+                        
                                         </tr>
                                         <?php
                                         }
