@@ -204,9 +204,15 @@ $(document).ready(function() {
         'language': {
             "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
         },
-        dom: 'Bfrtip',
+        dom: 'Bfrtip<"top"l>r',
         buttons: [
             'copy', 'excel', 'pdf', 'print'
-        ]
+        ],
+        lengthMenu: [10, 25, 50, 75, 100],
+    });
+    tbPersonal = $("#tPersonal").DataTable({
+        'language': {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+        },
     });
 });

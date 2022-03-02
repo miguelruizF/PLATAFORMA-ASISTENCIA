@@ -66,7 +66,8 @@
                                             <th>PUESTO</th>
                                             <th>HORA ENTRADA</th>
                                             <th>HORA SALIDA</th>
-                                            <!-- <th>HORAS LABORADAS</th> -->
+                                            <th>HORAS LABORADAS</th>
+                                            <th>STATUS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,19 +77,44 @@
                                             // while($row = $resultado->fetchAll(PDO::FETCH_ASSOC)){
                                             //     echo "<pre>";print_r($row->rows());
                                             // }
-                                            $horaEntradaM = '08:30:00';
-                                            $limitHoraEntradaM = '09:05:59';
-                                            $horaSalidaM = '14:30:00';
-                                            $retardoMa = '09:06:00';
-                                            $limitRetardoMa = '09:10:59';
-                                            $faltaMa = '09:11:00';
-                                            $limitFaltaMa = '13:59:59';
+                                            $horaEntradaM = new DateTime('08:30:00');
+                                            $limitHoraEntradaM = new DateTime('09:05:59');
+                                            $horaSalidaM = new DateTime('14:30:00');
+                                            $retardoMa = new DateTime('09:06:00');
+                                            $limitRetardoMa = new DateTime('09:10:59');
+                                            $faltaMa = new DateTime('09:11:00');
+                                            $limitFaltaMa = new DateTime('13:59:59');
+
+                                            $horaEntradaT = new DateTime('14:20:00');
+                                            $limitHoraEntradaT = new DateTime('14:35:59');
+                                            $horaSalidaT = new DateTime('19:30:00');
+                                            $retardoTa = new DateTime('14:36:00');
+                                            $limitRetardoTa = new DateTime('14:40:59');
+                                            $faltaTa = new DateTime('14:41:00');
+                                            $limitFaltaTa = new DateTime('16:59:59');
+                                            
                                             $sql = "SELECT *, personal.num_empleado as personal, asistencia.horaEntrada as entrada, asistencia.horaSalida as salida from asistencia left join personal on personal.num_empleado = asistencia.idEmpleado order by asistencia.fecha asc, asistencia.idEmpleado asc, asistencia.horaEntrada asc";
                                             $resultado = $conexion->prepare($sql);
                                             $resultado->execute();
                                             $result = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                             foreach($result as $horario){   
-                                                
+                                                $horaUno = new DateTime($horario['horaEntrada']);
+                                                $horaDos = new DateTime($horario['horaSalida']);
+                                                if($horaDos == new DateTime('00:00:00')){
+                                                    $horaUno = new DateTime('00:00:00');
+                                                    $resultado = $horaUno->diff($horaDos);
+                                                    //$status = '<span class="bg-danger p-1 rounded">FALTA</span>';
+                                                }else{
+                                                    $resultado = $horaDos->diff($horaUno);
+                                                }
+
+                                                if(($horaUno >= $horaEntradaM and $horaUno <= $limitHoraEntradaM) or ($horaUno >= $horaEntradaT and $horaUno <= $limitHoraEntradaT)){
+                                                    $status = '<span class="bg-success p-1 rounded">A TIEMPO</span>';
+                                                }elseif (($horaUno > $retardoMa and $horaUno <= $limitRetardoMa) or ($horaUno > $retardoTa and $horaUno <= $limitRetardoTa)) {
+                                                    $status = '<span class="bg-warning p-1 rounded">RETARDO</span>';
+                                                }elseif(($horaUno > $faltaMa and $horaUno < $limitFaltaMa) or ($horaUno > $faltaTa and $horaUno < $limitFaltaTa) or ($horaUno > $faltaTa or $horaDos == new DateTime('00:00:00'))){
+                                                    $status = '<span class="bg-danger p-1 rounded">FALTA</span>';
+                                                }
                                             ?>
                                         <tr>
                                             <td>
@@ -109,6 +135,14 @@
                                             </td>
                                             <td>
                                                 <?php echo $horario['horaSalida']?>
+                                            </td>
+                                            <td>
+                                                <?php echo $resultado->format('%H:%I:%S')?>
+                                            </td>
+                                            <td>
+                                                <?php 
+                                                    echo $status;
+                                                ?>
                                             </td>
                         
                                         </tr>

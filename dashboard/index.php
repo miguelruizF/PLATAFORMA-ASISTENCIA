@@ -156,6 +156,12 @@ $personal = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">
+                                    <?php 
+                                         $sql = "SELECT COUNT(horaEntrada) FROM asistencia";
+                                         $query = $conexion->query($sql);
+                                         $count = $query->fetchColumn();
+                                         echo '<h3>'.$count.'</h3>';
+                                    ?>
                                     <p style="font-size:25px; margin:0;">Asistencias</p>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
@@ -164,26 +170,46 @@ $personal = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                         </div>
-                        <!--
+                        
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Warning Card</div>
+                                <div class="card-body">
+                                    <?php 
+                                         $sql = "SELECT count(*) FROM asistencia where (horaEntrada > '09:06:00' and horaEntrada <= '09:10:59' and horaSalida != '00:00:00') or (horaEntrada > '14:36:00' and horaEntrada <= '14:40:59' and horaSalida != '00:00:00') " ;
+                                         $resultado = $conexion->prepare($sql);
+                                         $resultado->execute();
+                                         $count = $resultado->fetchColumn();
+                                        
+                                        echo '<h3>'.$count.'</h3>';
+                                    ?>
+                                    <p style="font-size:25px; margin:0;">Retardos</p>
+                                </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="asistencia.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">Danger Card</div>
+                                <div class="card-body">
+                                    <?php 
+                                         $sql = "SELECT count(*) FROM asistencia where ((horaEntrada > '09:11:00' and horaEntrada <= '13:59:59') or (horaEntrada > '14:41:00' and horaEntrada <= '16:59:59')) or horaSalida = '00:00:00'" ;
+                                         $resultado = $conexion->prepare($sql);
+                                         $resultado->execute();
+                                         $count = $resultado->fetchColumn();
+                                        
+                                        echo '<h3>'.$count.'</h3>';
+                                    ?>
+                                    <p style="font-size:25px; margin:0;">Faltas</p>
+                                </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="asistencia.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
-                            -->
+                            
                     </div>
 
                     <div class="card mb-4">
@@ -194,20 +220,39 @@ $personal = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     <table id="tPersonal" class="table table-striped table-dark" style="width:100%">
                         <thead>
                             <tr>
-                                <th>NUM. EMPLEADO</th>
+                                <th># EMPLEADO</th>
                                 <th>NOMBRE</th>
-                                <th>APELLIDO</th>
+                                <th>EDAD</th>
                                 <th>PUESTO</th>
                             </tr>
                         </thead>
                         <tbody>
-                        
+                            <?php
+                            foreach ($personal as $person) { 
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $person['num_empleado']?>
+                                </td>
+                                <td>
+                                    <?php echo $person['nombre']. ' ' .$person['ap_paterno'].' '.$person['ap_materno']?>
+                                </td>
+                                <td>
+                                    <?php echo $person['edad'].' años'?>
+                                </td>
+                                <td>
+                                    <?php echo $person['puesto']?>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>NUM. EMPLEADO</th>
                                 <th>NOMBRE</th>
-                                <th>APELLIDO</th>
+                                <th>EDAD</th>
                                 <th>PUESTO</th>
                             </tr>
                         </tfoot>
