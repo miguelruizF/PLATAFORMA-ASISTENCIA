@@ -46,6 +46,11 @@ switch ($opcion) {
         $resultado = $conexion->prepare($sql);
         $data = $resultado->execute();
         break;
+    case 5:
+        $sql = "TRUNCATE TABLE asistencia";
+        $resultado = $conexion->prepare($sql);
+        $resultado->execute();
+        break;
 }
 print json_encode($data , JSON_UNESCAPED_UNICODE);
 $conexion = null;

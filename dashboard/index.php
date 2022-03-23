@@ -31,6 +31,9 @@ $personal = $resultado->fetchAll(PDO::FETCH_ASSOC);
     
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
+    <!--ESTILOS BOTONES-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 </head>
 
 <body class="sb-nav-fixed">

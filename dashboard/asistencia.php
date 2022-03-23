@@ -12,8 +12,6 @@
     $personal = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -48,8 +46,16 @@
                         <div class="mt-4 mb-4">
                             <h4>Asistencias</h4>
                         </div>
-                        
                         <hr>
+                        <div class="mt-4 mb-4">
+                            <?php 
+                                if(isset($_POST['vaciar'])){
+                                    echo "diste click"; 
+                                }
+                            ?>
+                            <button id="btn_vaciar" type="submit" name="vaciar" class="btn btn-danger">Vaciar Base de Datos</button>
+                        </div>
+                    
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>

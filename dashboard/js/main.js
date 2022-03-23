@@ -86,7 +86,7 @@ $(document).ready(function() {
             success: function(data) {
                 //alert(data);
                 tVerEmpleados.ajax.reload(null, false);
-                console.log(data);
+                //console.log(data);
             }
         });
         $("#addnew").modal('hide');
@@ -97,6 +97,26 @@ $(document).ready(function() {
     $('.close').click(function() {
         $("#addnew").modal('hide');
         $("#edit").modal('hide');
+    });
+
+    //BORRAR BASE DE DATOS
+
+    $('#btn_vaciar').click(function() {
+        opcion = 5;
+        var borrar = confirm('¿Estas seguro de borrar los datos?');
+        if (borrar) {
+            $.ajax({
+                url: 'bd-personal/crud.php',
+                type: 'POST',
+                datatype: 'JSON',
+                data: {
+                    opcion: opcion
+                },
+                success: function() {
+                    tbAsistencia.ajax.reload(null, false);
+                }
+            });
+        }
     });
 
     //CREAR NUEVO REGISTRO
